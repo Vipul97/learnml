@@ -1,3 +1,5 @@
-build
-dist
-learnml.egg-info
+__pycache__/
+
+build/
+dist/
+learnml.egg-info/
