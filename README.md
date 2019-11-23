@@ -3,3 +3,27 @@
 
 # LearnML
 LearnML is a Python module for Machine Learning and Deep Learning.
+
+### Installation
+
+#### Dependencies
+
+learnml requires:
+
+- Python
+- NumPy
+
+#### User installation
+
+    pip3 install -U learnml
+
+
+### Development
+
+#### Important links
+
+- Official source code repo: https://github.com/Vipul97/learnml/
+
+#### Source code
+
+    git clone https://github.com/Vipul97/learnml.git
