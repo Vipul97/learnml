@@ -1,3 +1,7 @@
 from ._data import StandardScaler
 
-__all__ = ['StandardScaler']
+from ._encoders import OrdinalEncoder
+
+__all__ = ['OrdinalEncoder',
+    'StandardScaler'
+]
