@@ -1,17 +1,30 @@
 import numpy as np
+import pandas as pd
+
+
+class OneHotEncoder:
+    def __init__(self):
+        self.categories_ = []
+
+    def fit(self, data):
+        for column in data.columns:
+            self.categories_.append(np.array(data[column].sort_values().unique().astype(object)))
+
+    def transform(self, data):
+        return pd.get_dummies(data)
 
 
 class OrdinalEncoder:
     def __init__(self):
         self.categories_ = []
 
-    def fit(self, X):
-        for column in X.columns:
-            self.categories_.append(np.array(X[column].sort_values().unique().astype(object)))
+    def fit(self, data):
+        for column in data.columns:
+            self.categories_.append(np.array(data[column].sort_values().unique().astype(object)))
 
-    def transform(self, X):
-        for column in X.columns:
-            X[column] = X[column].astype("category")
-            X[column] = X[column].cat.codes
+    def transform(self, data):
+        for column in data.columns:
+            data[column] = data[column].astype("category")
+            data[column] = data[column].cat.codes
 
-        return X
+        return data
