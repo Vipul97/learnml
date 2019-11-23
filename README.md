@@ -12,6 +12,7 @@ learnml requires:
 
 - Python
 - NumPy
+- Pandas
 
 #### User installation
 
