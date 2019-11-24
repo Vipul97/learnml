@@ -26,7 +26,7 @@ class LogisticRegression:
         def optimize():
             costs = []
 
-            for i in range(self.max_iter):
+            for iter in range(self.max_iter):
                 grads, cost = propagate()
 
                 self.parameters["w"] -= self.eta0 * grads["dw"]
