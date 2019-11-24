@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-def plot_regression(X, y, reg, poly_features=None, xlabel="x_1", ylabel="y"):
+def plot_regression(X, y, model, poly_features=None, xlabel="x_1", ylabel="y"):
     plt.xlabel("${}$".format(xlabel), fontsize=18)
     plt.ylabel("${}$".format(ylabel), fontsize=18)
 
@@ -11,7 +11,7 @@ def plot_regression(X, y, reg, poly_features=None, xlabel="x_1", ylabel="y"):
     if poly_features:
         X_new = poly_features.transform(X_new)
 
-    y_new = reg.predict(X_new)
+    y_new = model.predict(X_new)
 
     plt.plot(X, y, "b.")
     plt.plot(X_new[:, 0], y_new, "r-", linewidth=2, label="Predictions")
