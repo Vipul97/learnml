@@ -13,6 +13,7 @@ learnml requires:
 - Python
 - NumPy
 - Pandas
+- Matplotlib
 
 #### User installation
 
