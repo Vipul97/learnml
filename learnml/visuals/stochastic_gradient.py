@@ -64,3 +64,25 @@ def plot_logistic_regression(model, X, y):
     plt.arrow(decision_boundary, 0.92, 0.3, 0, head_width=0.05, head_length=0.1, fc='g', ec='g')
     plt.axis([np.min(X), np.max(X), -0.02, 1.02])
     plt.show()
+
+
+def plot_logistic_regression_contour(model, X, y):
+    x0, x1 = np.meshgrid(
+        np.linspace(np.min(X[:, 0]) - 0.02, np.max(X[:, 0]) + 0.02, 1000).reshape(-1, 1),
+        np.linspace(np.min(X[:, 1]) - 0.02, np.max(X[:, 1]) + 0.02, 1000).reshape(-1, 1),
+    )
+    X_new = np.c_[x0.ravel(), x1.ravel()]
+
+    y_proba = model.predict_proba(X_new)
+
+    zz = y_proba[:, 1].reshape(x0.shape)
+    contour = plt.contour(x0, x1, zz, cmap=plt.cm.brg)
+
+    left_right = np.array([np.min(X[:, 0]) - 0.02, np.max(X[:, 0]) + 0.02])
+    boundary = -(model.coef_[0] * left_right + model.intercept_) / model.coef_[1]
+
+    plt.clabel(contour, inline=1, fontsize=12)
+    plt.plot(X[y == 0, 0], X[y == 0, 1], "bs")
+    plt.plot(X[y == 1, 0], X[y == 1, 1], "g^")
+    plt.plot(left_right, boundary, "k--", linewidth=3)
+    plt.show()
