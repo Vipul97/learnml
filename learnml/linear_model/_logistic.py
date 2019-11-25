@@ -1,3 +1,4 @@
+from learnml.utils import sigmoid
 import numpy as np
 
 
@@ -5,9 +6,6 @@ class LogisticRegression:
     def __init__(self, max_iter=100, eta0=0.1):
         self.max_iter = max_iter
         self.eta0 = eta0
-
-    def sigmoid(self, z):
-        return 1 / (1 + np.exp(-z))
 
     def fit(self, X, y):
         def initialize_parameters(dim):
@@ -17,7 +15,7 @@ class LogisticRegression:
             return {"w": w, "b": b}
 
         def propagate():
-            a = self.sigmoid(np.dot(self.parameters["w"].T, self.X) + self.parameters["b"])
+            a = sigmoid(np.dot(self.parameters["w"].T, self.X) + self.parameters["b"])
 
             return {"dw": 1 / self.m * np.dot(self.X, (a - self.y).T),
                     "db": 1 / self.m * np.sum(a - self.y)}, \
@@ -45,7 +43,7 @@ class LogisticRegression:
     def predict(self, X):
         X = X.T
         y_pred = np.zeros((1, X.shape[1]))
-        a = self.sigmoid(np.dot(self.parameters["w"].T, X) + self.parameters["b"])
+        a = sigmoid(np.dot(self.parameters["w"].T, X) + self.parameters["b"])
 
         for i in range(a.shape[1]):
             y_pred[0, i] = 0 if a[0, i] <= 0.5 else 1
