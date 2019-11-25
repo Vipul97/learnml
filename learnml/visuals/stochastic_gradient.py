@@ -8,7 +8,7 @@ def plot_regression(model, X, y, poly_features=None, xlabel="x_1", ylabel="y"):
     plt.xlabel("${}$".format(xlabel), fontsize=18)
     plt.ylabel("${}$".format(ylabel), fontsize=18)
 
-    X_new = np.linspace(np.min(X), np.max(X), 1000).reshape(1000, 1)
+    X_new = np.linspace(np.min(X), np.max(X), 1000).reshape(-1, 1)
 
     if poly_features:
         X_new = poly_features.transform(X_new)
@@ -45,4 +45,22 @@ def plot_learning_curves(model, X, y):
     plt.plot(np.sqrt(train_errors), "r-", linewidth=2, label="train")
     plt.plot(np.sqrt(val_errors), "b-", linewidth=2, label="val")
     plt.legend(loc="upper right", fontsize=14)
+    plt.show()
+
+
+def plot_logistic_regression(model, X, y):
+    X_new = np.linspace(np.min(X), np.max(X), 1000).reshape(-1, 1)
+    y_proba = model.predict_proba(X_new)
+    decision_boundary = X_new[y_proba[:, 1] >= 0.5][0]
+
+    plt.ylabel("Probability", fontsize=14)
+    plt.plot(X[y == 0], y[y == 0], "bs")
+    plt.plot(X[y == 1], y[y == 1], "g^")
+    plt.plot([decision_boundary, decision_boundary], [0, 1], "k:", linewidth=2)
+    plt.plot(X_new, y_proba[:, 1], "g-", linewidth=2)
+    plt.plot(X_new, y_proba[:, 0], "b--", linewidth=2)
+    plt.text(decision_boundary + 0.02, 0.15, "Decision  boundary", fontsize=14, color="k", ha="center")
+    plt.arrow(decision_boundary, 0.08, -0.3, 0, head_width=0.05, head_length=0.1, fc='b', ec='b')
+    plt.arrow(decision_boundary, 0.92, 0.3, 0, head_width=0.05, head_length=0.1, fc='g', ec='g')
+    plt.axis([np.min(X), np.max(X), -0.02, 1.02])
     plt.show()
