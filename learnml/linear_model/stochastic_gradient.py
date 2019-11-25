@@ -39,6 +39,14 @@ class SGDClassifier:
 
         return y_pred
 
+    def predict_proba(self, X):
+        X = np.c_[np.ones((X.shape[0], 1)), X]
+        w = [self.intercept_, *self.coef_]
+
+        p = np.array(sigmoid(np.dot(X, w))).reshape(-1, 1)
+
+        return np.concatenate([1 - p, p], axis=1)
+
 
 class SGDRegressor:
     def __init__(self, penalty='l2', alpha=0.0001, max_iter=1000, eta0=0.01):

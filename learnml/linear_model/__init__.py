@@ -10,4 +10,4 @@ __all__ = ['LinearRegression',
            'Ridge',
            'SGDClassifier',
            'SGDRegressor'
-]
+           ]
