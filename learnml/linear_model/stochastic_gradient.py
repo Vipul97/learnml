@@ -2,7 +2,9 @@ import numpy as np
 
 
 class SGDRegressor:
-    def __init__(self, max_iter=1000, eta0=0.01):
+    def __init__(self, penalty='l2', alpha=0.0001, max_iter=1000, eta0=0.01):
+        self.penalty = penalty
+        self.alpha = alpha
         self.max_iter = max_iter
         self.eta0 = eta0
 
@@ -13,7 +15,14 @@ class SGDRegressor:
 
             for iter in range(self.max_iter):
                 for i in range(self.m):
+                    cost = (np.dot(self.X[i], w) - y[i]) ** 2
                     w -= self.eta0 * 2 * np.dot(self.X[i].T, np.dot(self.X[i], w) - y[i])
+
+                    if self.penalty == 'l2':
+                        cost += self.alpha * np.dot(w[1:].T, w[1:])
+                        w[1:] -= 2 * self.alpha * w[1:]
+
+                    costs.append(cost)
                     w_path.append(w.copy())
 
             self.intercept_, *self.coef_ = w
