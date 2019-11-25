@@ -1,9 +1,11 @@
-from learnml.utils import sigmoid
+from learnml.utils import sigmoid, sign
 import numpy as np
 
 
 class SGDClassifier:
-    def __init__(self, max_iter=1000, eta0=0.0):
+    def __init__(self, penalty='l2', alpha=0.0001, max_iter=1000, eta0=0.0):
+        self.__penalty = penalty
+        self.__alpha = alpha
         self.n_iter_ = max_iter
         self.__eta0 = eta0
 
@@ -17,6 +19,13 @@ class SGDClassifier:
 
                 cost = -1 / m * (np.sum(y * np.log(p) + (1 - y) * np.log(1 - p)))
                 w -= self.__eta0 * 1 / m * np.dot(X.T, p - y)
+
+                if self.__penalty == 'l2':
+                    cost += (self.__alpha / (2 * m)) * np.dot(w[1:].T, w[1:])
+                    w[1:] -= self.__alpha / m * w[1:]
+                elif self.__penalty == 'l1':
+                    cost += self.__alpha / m * np.sum(np.abs(w[1:]))
+                    w[1:] -= 2 * self.__alpha / m * sign(w[1:])
 
                 costs.append(cost)
 
@@ -57,12 +66,6 @@ class SGDRegressor:
 
     def fit(self, X, y):
         def gradient_descent():
-            def sign(w):
-                w[w < 0] = -1
-                w[w > 0] = 1
-
-                return w
-
             costs, w_path = [], []
             w = [self.intercept_, *self.coef_]
 
