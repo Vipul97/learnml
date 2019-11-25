@@ -13,7 +13,7 @@ class SGDRegressor:
 
             for iter in range(self.max_iter):
                 for i in range(self.m):
-                    w -= self.eta0 * 2 * np.dot(self.X.T, np.dot(self.X, w) - y)
+                    w -= self.eta0 * 2 * np.dot(self.X[i].T, np.dot(self.X[i], w) - y[i])
                     w_path.append(w.copy())
 
             self.intercept_, *self.coef_ = w
