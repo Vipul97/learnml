@@ -10,6 +10,12 @@ class SGDRegressor:
 
     def fit(self, X, y):
         def gradient_descent():
+            def sign(w):
+                w[w < 0] = -1
+                w[w > 0] = 1
+                
+                return w
+
             costs, w_path = [], []
             w = [self.intercept_, *self.coef_]
 
@@ -21,6 +27,9 @@ class SGDRegressor:
                     if self.penalty == 'l2':
                         cost += self.alpha * np.dot(w[1:].T, w[1:])
                         w[1:] -= 2 * self.alpha * w[1:]
+                    elif self.penalty == 'l1':
+                        cost += self.alpha * np.sum(np.abs(w[1:]))
+                        w[1:] -= 2 * self.alpha * sign(w[1:])
 
                     costs.append(cost)
                     w_path.append(w.copy())
