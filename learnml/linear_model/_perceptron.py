@@ -6,38 +6,24 @@ class Perceptron:
         self.max_iter = max_iter
         self.eta0 = eta0
 
-    def heaviside(self, z):
-        return 1 if z >= 0 else 0
-
     def fit(self, X, y):
-        def initialize_parameters(dim):
-            w = np.zeros((dim, 1))
-            b = 0
+        n_samples = X.shape[0]
+        X = np.c_[np.ones((n_samples, 1)), X]
+        n_features = X.shape[1]
+        self.intercept_, *self.coef_ = np.zeros(n_features)
+        self.n_iter = self.max_iter
+        self.t_ = self.n_iter * n_samples
+        w = [self.intercept_, *self.coef_]
 
-            return {"w": w, "b": b}
+        for j in range(self.n_iter):
+            for i in range(n_samples):
+                y_hat = np.heaviside(np.dot(X[i], w), 0)
+                w += self.eta0 * (y[i] - y_hat) * X[i]
 
-        def optimize():
-            for i in range(self.m):
-                x_i = self.X[:, i]
-                y_i = self.y[:, i]
-                y_hat = self.heaviside(np.dot(x_i, self.parameters["w"]) + self.parameters["b"])
-
-                self.parameters["w"] += self.eta0 * (y_i - y_hat) * x_i.reshape((self.X.shape[0], 1))
-                self.parameters["b"] += self.eta0 * (y_i - y_hat)
-
-        self.X = X.T
-        self.m = self.X.shape[1]
-        self.y = y.reshape(1, self.m)
-        self.parameters = initialize_parameters(self.X.shape[0])
-
-        for i in range(self.max_iter):
-            optimize()
+        self.intercept_, *self.coef_ = w
 
     def predict(self, X):
-        X = X.T
-        y_pred = np.zeros((1, X.shape[1]))
+        X = np.c_[np.ones((X.shape[0], 1)), X]
+        w = [self.intercept_, *self.coef_]
 
-        for i in range(X.shape[1]):
-            y_pred[0, i] = self.heaviside(np.dot(self.X[:, i], self.parameters["w"]) + self.parameters["b"])
-
-        return y_pred
+        return np.heaviside(np.dot(X, w), 0)
