@@ -11,7 +11,7 @@ class OneHotEncoder:
             self.categories_.append(np.array(data[column].sort_values().unique().astype(object)))
 
     def transform(self, data):
-        return pd.get_dummies(data)
+        return pd.get_dummies(data).to_numpy()
 
 
 class OrdinalEncoder:
@@ -27,4 +27,4 @@ class OrdinalEncoder:
             data[column] = data[column].astype("category")
             data[column] = data[column].cat.codes
 
-        return data
+        return data.to_numpy()

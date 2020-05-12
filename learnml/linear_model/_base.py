@@ -3,7 +3,8 @@ import numpy as np
 
 class LinearRegression:
     def __init__(self):
-        None
+        self.coef_ = None
+        self.intercept_ = None
 
     def fit(self, X, y):
         X = np.c_[np.ones((X.shape[0], 1)), X]
@@ -11,6 +12,6 @@ class LinearRegression:
 
     def predict(self, X):
         X = np.c_[np.ones((X.shape[0], 1)), X]
-        w = [self.intercept_, *self.coef_]
+        w = np.array([self.intercept_, *self.coef_])
 
         return np.dot(X, w)

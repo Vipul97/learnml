@@ -5,7 +5,7 @@ with open("README.md") as f:
 
 setuptools.setup(
     name='learnml',
-    version='0.0.3',
+    version='0.2',
     author='Vipul Gharde',
     description='LearnML is a Python module for Machine Learning and Deep Learning.',
     long_description=long_description,

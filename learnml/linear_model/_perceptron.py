@@ -5,6 +5,10 @@ class Perceptron:
     def __init__(self, max_iter=1000, eta0=1.0):
         self.__max_iter = max_iter
         self.__eta0 = eta0
+        self.coef_ = None
+        self.intercept_ = None
+        self.n_iter = None
+        self.t_ = None
 
     def fit(self, X, y):
         n_samples = X.shape[0]
@@ -13,7 +17,7 @@ class Perceptron:
         self.intercept_, *self.coef_ = np.zeros(n_features)
         self.n_iter = self.__max_iter
         self.t_ = self.n_iter * n_samples
-        w = [self.intercept_, *self.coef_]
+        w = np.array([self.intercept_, *self.coef_])
 
         for j in range(self.n_iter):
             for i in range(n_samples):
@@ -24,6 +28,6 @@ class Perceptron:
 
     def predict(self, X):
         X = np.c_[np.ones((X.shape[0], 1)), X]
-        w = [self.intercept_, *self.coef_]
+        w = np.array([self.intercept_, *self.coef_])
 
         return np.heaviside(np.dot(X, w), 0)

@@ -1,0 +1,8 @@
+Stream,Slope,Elevation,Vegetation
+false,steep,high,carrot
+true,moderate,low,radish
+true,steep,medium,radish
+false,steep,medium,carrot
+false,flat,high,coriander
+true,steep,highest,coriander
+true,steep,high,carrot

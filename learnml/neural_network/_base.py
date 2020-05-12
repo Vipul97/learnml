@@ -3,9 +3,14 @@ import numpy as np
 
 class NeuralNetwork:
     def __init__(self, layer_dims=np.array([1]), learning_rate=1.0, num_iterations=1000):
-        self.layer_dims = layer_dims
-        self.learning_rate = learning_rate
-        self.num_iterations = num_iterations
+        self.__layer_dims = layer_dims
+        self.__learning_rate = learning_rate
+        self.__num_iterations = num_iterations
+        self.costs = None
+        self.m = None
+        self.parameters = None
+        self.X = None
+        self.y = None
 
     def feedforward(self, X):
         def sigmoid(z):
@@ -49,11 +54,11 @@ class NeuralNetwork:
     def fit(self, X, y):
         def initialize_parameters():
             parameters = {}
-            L = len(self.layer_dims)
+            L = len(self.__layer_dims)
 
             for l in range(1, L):
-                parameters['W' + str(l)] = np.random.randn(self.layer_dims[l], self.layer_dims[l - 1]) * 0.01
-                parameters['b' + str(l)] = np.zeros((self.layer_dims[l], 1))
+                parameters['W' + str(l)] = np.random.randn(self.__layer_dims[l], self.__layer_dims[l - 1]) * 0.01
+                parameters['b' + str(l)] = np.zeros((self.__layer_dims[l], 1))
 
             return parameters
 
@@ -106,8 +111,8 @@ class NeuralNetwork:
             L = len(self.parameters) // 2
 
             for l in range(L):
-                self.parameters["W" + str(l + 1)] -= self.learning_rate * grads["dW" + str(l + 1)]
-                self.parameters["b" + str(l + 1)] -= self.learning_rate * grads["db" + str(l + 1)]
+                self.parameters["W" + str(l + 1)] -= self.__learning_rate * grads["dW" + str(l + 1)]
+                self.parameters["b" + str(l + 1)] -= self.__learning_rate * grads["db" + str(l + 1)]
 
         self.X = X.T
         self.m = self.X.shape[1]
@@ -115,7 +120,7 @@ class NeuralNetwork:
         self.parameters = initialize_parameters()
         self.costs = []
 
-        for i in range(self.num_iterations):
+        for i in range(self.__num_iterations):
             aL, caches = self.feedforward(self.X)
             cost = compute_cost(aL)
             grads = backprop(aL, caches)

@@ -8,6 +8,11 @@ class SGDClassifier:
         self.__alpha = alpha
         self.__max_iter = max_iter
         self.__eta0 = eta0
+        self.coef_ = None
+        self.costs = None
+        self.intercept_ = None
+        self.n_iter_ = None
+        self.t_ = None
 
     def fit(self, X, y):
         n_samples = X.shape[0]
@@ -17,11 +22,10 @@ class SGDClassifier:
         self.n_iter_ = self.__max_iter
         self.t_ = self.n_iter_ * n_samples
         self.costs = []
-        w = [self.intercept_, *self.coef_]
+        w = np.array([self.intercept_, *self.coef_])
 
         for i in range(self.n_iter_):
             p = sigmoid(np.dot(X, w))
-
             cost = -1 / n_samples * (np.sum(y * np.log(p) + (1 - y) * np.log(1 - p)))
             w -= self.__eta0 * 1 / n_samples * np.dot(X.T, p - y)
 
@@ -39,8 +43,7 @@ class SGDClassifier:
     def predict(self, X):
         X = np.c_[np.ones((X.shape[0], 1)), X]
         y_pred = np.zeros(X.shape[0])
-        w = [self.intercept_, *self.coef_]
-
+        w = np.array([self.intercept_, *self.coef_])
         p = sigmoid(np.dot(X, w))
         y_pred[p > 0.5] = 1
 
@@ -48,8 +51,7 @@ class SGDClassifier:
 
     def predict_proba(self, X):
         X = np.c_[np.ones((X.shape[0], 1)), X]
-        w = [self.intercept_, *self.coef_]
-
+        w = np.array([self.intercept_, *self.coef_])
         p = np.array(sigmoid(np.dot(X, w))).reshape(-1, 1)
 
         return np.concatenate([1 - p, p], axis=1)
@@ -61,6 +63,12 @@ class SGDRegressor:
         self.__alpha = alpha
         self.__max_iter = max_iter
         self.__eta0 = eta0
+        self.coef_ = None
+        self.costs = None
+        self.intercept_ = None
+        self.n_iter_ = None
+        self.t_ = None
+        self.w_path = None
 
     def fit(self, X, y):
         n_samples = X.shape[0]
@@ -70,7 +78,7 @@ class SGDRegressor:
         self.n_iter_ = self.__max_iter
         self.t_ = self.n_iter_ * n_samples
         self.costs, self.w_path = [], []
-        w = [self.intercept_, *self.coef_]
+        w = np.array([self.intercept_, *self.coef_])
 
         for j in range(self.n_iter_):
             for i in range(n_samples):
@@ -82,7 +90,7 @@ class SGDRegressor:
                     w[1:] -= 2 * self.__alpha * w[1:]
                 elif self.__penalty == 'l1':
                     cost += self.__alpha * np.sum(np.abs(w[1:]))
-                    w[1:] -= 2 * self.__alpha * sign(w[1:])
+                    w[1:] -= 2 * self.__alpha * np.sign(w[1:])
 
                 self.costs.append(cost)
                 self.w_path.append(w.copy())
@@ -92,6 +100,6 @@ class SGDRegressor:
 
     def predict(self, X):
         X = np.c_[np.ones((X.shape[0], 1)), X]
-        w = [self.intercept_, *self.coef_]
+        w = np.array([self.intercept_, *self.coef_])
 
         return np.dot(X, w)
