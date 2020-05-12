@@ -25,11 +25,11 @@ class NeuralNetwork:
         def linear_activation_forward(a_prev, W, b, activation):
             z, linear_cache = linear_forward(a_prev, W, b)
 
-            if activation == "sigmoid":
+            if activation == 'sigmoid':
                 a, activation_cache = sigmoid(z)
 
                 return a, (linear_cache, activation_cache)
-            elif activation == "relu":
+            elif activation == 'relu':
                 a, activation_cache = relu(z)
 
                 return a, (linear_cache, activation_cache)
@@ -42,11 +42,11 @@ class NeuralNetwork:
             a_prev = a
             a, cache = linear_activation_forward(a_prev, self.parameters['W' + str(l)],
                                                  self.parameters['b' + str(l)],
-                                                 "relu")
+                                                 'relu')
             caches.append(cache)
 
         aL, cache = linear_activation_forward(a, self.parameters['W' + str(L)], self.parameters['b' + str(L)],
-                                              "sigmoid")
+                                              'sigmoid')
         caches.append(cache)
 
         return aL, caches
@@ -86,9 +86,9 @@ class NeuralNetwork:
             def linear_activation_backward(da, cache, activation):
                 linear_cache, activation_cache = cache
 
-                if activation == "relu":
+                if activation == 'relu':
                     return linear_backward(relu_backward(da, activation_cache), linear_cache)
-                elif activation == "sigmoid":
+                elif activation == 'sigmoid':
                     return linear_backward(sigmoid_backward(da, activation_cache), linear_cache)
 
             grads = {}
@@ -96,14 +96,14 @@ class NeuralNetwork:
             daL = - (np.divide(self.y, aL) - np.divide(1 - self.y, 1 - aL))
 
             current_cache = caches[L - 1]
-            grads["da" + str(L - 1)], grads["dW" + str(L)], grads["db" + str(L)] = linear_activation_backward(daL,
+            grads['da' + str(L - 1)], grads['dW' + str(L)], grads['db' + str(L)] = linear_activation_backward(daL,
                                                                                                               current_cache,
-                                                                                                              "sigmoid")
+                                                                                                              'sigmoid')
             for l in reversed(range(L - 1)):
                 current_cache = caches[l]
-                grads["da" + str(l)], grads["dW" + str(l + 1)], grads[
-                    "db" + str(l + 1)] = linear_activation_backward(
-                    grads["da" + str(l + 1)], current_cache, "relu")
+                grads['da' + str(l)], grads['dW' + str(l + 1)], grads[
+                    'db' + str(l + 1)] = linear_activation_backward(
+                    grads['da' + str(l + 1)], current_cache, 'relu')
 
             return grads
 
@@ -111,8 +111,8 @@ class NeuralNetwork:
             L = len(self.parameters) // 2
 
             for l in range(L):
-                self.parameters["W" + str(l + 1)] -= self.__learning_rate * grads["dW" + str(l + 1)]
-                self.parameters["b" + str(l + 1)] -= self.__learning_rate * grads["db" + str(l + 1)]
+                self.parameters['W' + str(l + 1)] -= self.__learning_rate * grads['dW' + str(l + 1)]
+                self.parameters['b' + str(l + 1)] -= self.__learning_rate * grads['db' + str(l + 1)]
 
         self.X = X.T
         self.m = self.X.shape[1]

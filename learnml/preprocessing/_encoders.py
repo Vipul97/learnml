@@ -24,7 +24,7 @@ class OrdinalEncoder:
 
     def transform(self, data):
         for column in data.columns:
-            data[column] = data[column].astype("category")
+            data[column] = data[column].astype('category')
             data[column] = data[column].cat.codes
 
         return data.to_numpy()
