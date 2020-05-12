@@ -1,4 +1,4 @@
-from learnml.utils.sigmoid import sigmoid
+from learnml.utils import sigmoid
 import unittest
 
 
