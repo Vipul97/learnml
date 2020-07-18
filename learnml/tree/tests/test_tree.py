@@ -6,7 +6,7 @@ import unittest
 
 class TestDecisionTreeClassifier(unittest.TestCase):
     def test_fit(self):
-        data = pd.read_csv('test_data.csv')
+        data = pd.read_csv('learnml/tree/tests/test_data.csv')
 
         tree_clf = DecisionTreeClassifier(mode='C45')
         tree = tree_clf.fit(list(data.keys()), data)

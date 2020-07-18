@@ -8,7 +8,7 @@ import unittest
 
 class TestOneHotEncoder(unittest.TestCase):
     def test_fit_transform(self):
-        data = pd.read_csv('test_data.csv')
+        data = pd.read_csv('learnml/preprocessing/tests/test_data.csv')
 
         onehot_encoder = OneHotEncoder()
         onehot_encoder.fit(data)
@@ -22,7 +22,7 @@ class TestOneHotEncoder(unittest.TestCase):
 
 class TestOrdinalEncoder(unittest.TestCase):
     def test_fit_transform(self):
-        data = pd.read_csv('test_data.csv')
+        data = pd.read_csv('learnml/preprocessing/tests/test_data.csv')
 
         ordinal_encoder = OrdinalEncoder()
         ordinal_encoder.fit(data)

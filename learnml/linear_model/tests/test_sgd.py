@@ -9,7 +9,7 @@ import unittest
 
 class TestSGDClassifier(unittest.TestCase):
     def test_fit_predict(self):
-        data = pd.read_csv('test_data.csv')
+        data = pd.read_csv('learnml/linear_model/tests/test_data.csv')
 
         train, test = train_test_split(data, test_size=0.2, random_state=42)
 
@@ -24,12 +24,14 @@ class TestSGDClassifier(unittest.TestCase):
         X_train = scaler.transform(X_train)
         X_test = scaler.transform(X_test)
 
-        log_clf = SGDClassifier(max_iter=5000, eta0=1)
-        log_clf.fit(X_train, y_train)
-        y_pred = log_clf.predict(X_test)
+        for i, penalty in enumerate(['l2', 'l1']):
+            with self.subTest(penalty=penalty):
+                log_clf = SGDClassifier(penalty=penalty, max_iter=5000, eta0=1)
+                log_clf.fit(X_train, y_train)
+                y_pred = log_clf.predict(X_test)
 
-        accuracy_score = np.mean(y_pred == y_test)
-        self.assertTrue(accuracy_score >= 0.8)
+                accuracy_score = np.mean(y_pred == y_test)
+                self.assertTrue(accuracy_score >= 0.8)
 
 
 class TestSGDRegressor(unittest.TestCase):
@@ -37,12 +39,14 @@ class TestSGDRegressor(unittest.TestCase):
         X = np.array([[1], [2]])
         y = np.array([1, 2])
 
-        sgd_reg = SGDRegressor()
-        sgd_reg.fit(X, y)
+        for i, penalty in enumerate(['l2', 'l1']):
+            with self.subTest(penalty=penalty):
+                sgd_reg = SGDRegressor(penalty=penalty)
+                sgd_reg.fit(X, y)
 
-        numpy.testing.assert_almost_equal(np.array([1]), sgd_reg.coef_, 1)
-        numpy.testing.assert_almost_equal(np.array([0]), sgd_reg.intercept_, 1)
-        numpy.testing.assert_almost_equal(np.array([1, 2]), sgd_reg.predict(X), 1)
+                numpy.testing.assert_almost_equal(np.array([1]), sgd_reg.coef_, 1)
+                numpy.testing.assert_almost_equal(np.array([0]), sgd_reg.intercept_, 1)
+                numpy.testing.assert_almost_equal(np.array([1, 2]), sgd_reg.predict(X), 1)
 
 
 if __name__ == "__main__":

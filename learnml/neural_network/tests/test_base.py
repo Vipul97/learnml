@@ -8,7 +8,7 @@ import unittest
 
 class TestNeuralNetwork(unittest.TestCase):
     def test_fit_predict(self):
-        data = pd.read_csv('test_data.csv')
+        data = pd.read_csv('learnml/neural_network/tests/test_data.csv')
 
         train, test = train_test_split(data, 0.2, random_state=42)
 

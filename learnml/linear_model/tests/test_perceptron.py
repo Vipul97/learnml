@@ -8,7 +8,7 @@ import unittest
 
 class TestLinearRegression(unittest.TestCase):
     def test_fit_predict(self):
-        data = pd.read_csv('test_data.csv')
+        data = pd.read_csv('learnml/linear_model/tests/test_data.csv')
 
         train, test = train_test_split(data, test_size=0.2, random_state=42)
 
