@@ -29,5 +29,5 @@ setuptools.setup(
         'Topic :: Scientific/Engineering',
         'Topic :: Software Development'
     ],
-    python_requires='3.5'
+    python_requires='>=3.5'
 )
