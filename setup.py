@@ -12,6 +12,7 @@ setuptools.setup(
     long_description_content_type='text/markdown',
     url='https://github.com/Vipul97/learnml',
     packages=setuptools.find_packages(),
+    install_requires=['graphviz', 'matplotlib', 'numpy', 'pandas'],
     classifiers=[
         'Intended Audience :: Developers',
         'Intended Audience :: Science/Research',
@@ -27,5 +28,6 @@ setuptools.setup(
         'Programming Language :: Python :: 3.7',
         'Topic :: Scientific/Engineering',
         'Topic :: Software Development'
-    ]
+    ],
+    python_requires='3.5'
 )
