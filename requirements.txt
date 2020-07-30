@@ -1,0 +1,11 @@
+bump2version
+wheel
+watchdog
+flake8
+tox
+coverage
+twine
+graphviz
+matplotlib
+numpy
+pandas
