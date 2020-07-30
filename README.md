@@ -1,32 +1,49 @@
-[![PyPI version](https://badge.fury.io/py/learnml.svg)](https://badge.fury.io/py/learnml)
-[![HitCount](http://hits.dwyl.io/Vipul97/learnml.svg)](http://hits.dwyl.io/Vipul97/learnml)
-
-# LearnML
+# LearnML [![Build Status](https://travis-ci.org/Vipul97/learnml.svg?branch=master)](https://travis-ci.org/Vipul97/learnml) [![PyPI version](https://badge.fury.io/py/learnml.svg)](https://badge.fury.io/py/learnml) [![HitCount](http://hits.dwyl.io/Vipul97/learnml.svg)](http://hits.dwyl.io/Vipul97/learnml)
 LearnML is a Python module for Machine Learning and Deep Learning.
 
-### Installation
+# Installation
 
-#### Dependencies
+## Requirements
+* Python 3.5+
 
-learnml requires:
+## Stable release
 
-- Python
-- Graphviz
-- NumPy
-- Pandas
-- Matplotlib
+To install learnml, run this command in your terminal:
 
-#### User installation
+```
+pip install learnml
+```
 
-    pip3 install -U learnml
+This is the preferred method to install learnml, as it will always install the most recent stable release.
 
+If you don't have [pip](https://pip.pypa.io) installed, this [Python installation guide](http://docs.python-guide.org/en/latest/starting/installation/) can guide you through the process.
 
-### Development
+## From sources
 
-#### Important links
+The sources for learnml can be downloaded from the [Github repo](https://github.com/Vipul97/learnml).
 
-- Official source code repo: https://github.com/Vipul97/learnml/
+You can either clone the public repository:
 
-#### Source code
+```
+git clone git://github.com/Vipul97/learnml
+```
 
-    git clone https://github.com/Vipul97/learnml.git
+Or download the [tarball](https://github.com/Vipul97/learnml/tarball/master):
+
+```
+curl -OJL https://github.com/Vipul97/learnml/tarball/master
+```
+
+Once you have a copy of the source, you can install it with:
+
+```
+python setup.py install
+```
+
+# Contributing
+
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on code of conduct, and the process for submitting pull requests.
+
+# License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
