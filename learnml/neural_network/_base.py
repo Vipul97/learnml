@@ -96,9 +96,8 @@ class NeuralNetwork:
             daL = - (np.divide(self.y, aL) - np.divide(1 - self.y, 1 - aL))
 
             current_cache = caches[L - 1]
-            grads['da' + str(L - 1)], grads['dW' + str(L)], grads['db' + str(L)] = linear_activation_backward(daL,
-                                                                                                              current_cache,
-                                                                                                              'sigmoid')
+            grads['da' + str(L - 1)], grads['dW' + str(L)], grads['db' + str(L)] = \
+                linear_activation_backward(daL, current_cache, 'sigmoid')
             for l in reversed(range(L - 1)):
                 current_cache = caches[l]
                 grads['da' + str(l)], grads['dW' + str(l + 1)], grads[
