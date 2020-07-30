@@ -51,13 +51,13 @@ lint: ## check style with flake8
 	flake8 learnml
 
 test: ## run tests quickly with the default Python
-	python setup.py test
+	python -m unittest discover
 
 test-all: ## run tests on every Python version with tox
 	tox
 
 coverage: ## check code coverage quickly with the default Python
-	coverage run --source learnml setup.py test
+	coverage run --source learnml -m unittest discover
 	coverage report -m
 	coverage html
 	$(BROWSER) htmlcov/index.html
