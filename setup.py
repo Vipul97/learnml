@@ -7,6 +7,7 @@ setuptools.setup(
     name='learnml',
     version='0.2',
     author='Vipul Gharde',
+    authon_email='vipul.gharde@gmail.com',
     description='LearnML is a Python module for Machine Learning and Deep Learning.',
     long_description=long_description,
     long_description_content_type='text/markdown',
