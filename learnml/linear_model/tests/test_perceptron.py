@@ -6,7 +6,7 @@ import pandas as pd
 import unittest
 
 
-class TestLinearRegression(unittest.TestCase):
+class TestPerceptron(unittest.TestCase):
     def test_fit_predict(self):
         data = pd.read_csv('learnml/linear_model/tests/test_data.csv')
 
