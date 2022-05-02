@@ -14,5 +14,5 @@ class Test(unittest.TestCase):
         pandas.testing.assert_frame_equal(expected_test_X, test_X)
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     unittest.main()

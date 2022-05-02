@@ -31,5 +31,5 @@ class TestNeuralNetwork(unittest.TestCase):
         self.assertTrue(accuracy_score >= 0.8)
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     unittest.main()

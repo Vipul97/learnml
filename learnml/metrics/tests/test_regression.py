@@ -11,5 +11,5 @@ class Test(unittest.TestCase):
             self.assertEqual(expected_results[i], mean_squared_error(np.array([1, 2, 3, 4, 5]), y_pred))
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     unittest.main()

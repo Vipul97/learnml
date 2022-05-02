@@ -20,5 +20,5 @@ class TestSimpleImputer(unittest.TestCase):
                 numpy.testing.assert_equal(expected_results[i], imputer.transform(X))
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     unittest.main()

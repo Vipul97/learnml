@@ -17,5 +17,5 @@ class TestLinearRegression(unittest.TestCase):
         numpy.testing.assert_almost_equal(np.array([1, 2]), lin_reg.predict(X))
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     unittest.main()

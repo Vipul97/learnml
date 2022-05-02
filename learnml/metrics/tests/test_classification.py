@@ -14,5 +14,5 @@ class Test(unittest.TestCase):
             numpy.testing.assert_equal(expected_results[i], confusion_matrix(np.array([1, 2, 3, 4, 5]), y_pred))
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     unittest.main()

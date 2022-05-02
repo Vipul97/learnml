@@ -32,5 +32,5 @@ class TestOrdinalEncoder(unittest.TestCase):
             ordinal_encoder.transform(data))
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     unittest.main()
