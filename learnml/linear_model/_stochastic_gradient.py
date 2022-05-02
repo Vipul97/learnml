@@ -32,6 +32,7 @@ class SGDClassifier:
             if self.__penalty == 'l2':
                 cost += (self.__alpha / (2 * n_samples)) * np.dot(w[1:].T, w[1:])
                 w[1:] -= self.__alpha / n_samples * w[1:]
+
             elif self.__penalty == 'l1':
                 cost += self.__alpha / n_samples * np.sum(np.abs(w[1:]))
                 w[1:] -= 2 * self.__alpha / n_samples * np.sign(w[1:])
@@ -88,6 +89,7 @@ class SGDRegressor:
                 if self.__penalty == 'l2':
                     cost += self.__alpha * np.dot(w[1:].T, w[1:])
                     w[1:] -= 2 * self.__alpha * w[1:]
+
                 elif self.__penalty == 'l1':
                     cost += self.__alpha * np.sum(np.abs(w[1:]))
                     w[1:] -= 2 * self.__alpha * np.sign(w[1:])
