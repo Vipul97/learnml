@@ -29,6 +29,7 @@ class NeuralNetwork:
                 a, activation_cache = sigmoid(z)
 
                 return a, (linear_cache, activation_cache)
+
             elif activation == 'relu':
                 a, activation_cache = relu(z)
 
