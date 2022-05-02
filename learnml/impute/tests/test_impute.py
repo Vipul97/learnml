@@ -1,7 +1,7 @@
 from learnml.impute import SimpleImputer
+import numpy as np
 import numpy.testing
 import pandas as pd
-import numpy as np
 import unittest
 
 
