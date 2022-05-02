@@ -14,9 +14,7 @@ class DecisionTreeClassifier:
             counts = {}
 
             for label in dataset[feature]:
-                if label not in counts:
-                    counts[label] = 0
-                counts[label] += 1
+                counts.setdefault(label, 0) + 1
 
             return counts
 
