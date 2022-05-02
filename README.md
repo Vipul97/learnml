@@ -1,4 +1,4 @@
-# LearnML [![codecov](https://codecov.io/gh/Vipul97/learnml/branch/master/graph/badge.svg)](https://codecov.io/gh/Vipul97/learnml) [![Build Status](https://travis-ci.com/Vipul97/learnml.svg?branch=master)](https://travis-ci.com/Vipul97/learnml) [![PyPI version](https://badge.fury.io/py/learnml.svg)](https://badge.fury.io/py/learnml) [![HitCount](http://hits.dwyl.io/Vipul97/learnml.svg)](http://hits.dwyl.io/Vipul97/learnml)
+# LearnML [![codecov](https://codecov.io/gh/Vipul97/learnml/branch/master/graph/badge.svg)](https://codecov.io/gh/Vipul97/learnml) [![Build Status](https://travis-ci.com/Vipul97/learnml.svg?branch=master)](https://travis-ci.com/Vipul97/learnml) [![PyPI version](https://badge.fury.io/py/learnml.svg)](https://badge.fury.io/py/learnml) [![HitCount](http://hits.dwyl.com/Vipul97/learnml.svg)](http://hits.dwyl.com/Vipul97/learnml)
 LearnML is a Python module for Machine Learning and Deep Learning.
 
 # Installation
