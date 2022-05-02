@@ -9,7 +9,7 @@ class TestDecisionTreeClassifier(unittest.TestCase):
         data = pd.read_csv('learnml/tree/tests/test_data.csv')
 
         tree_clf = DecisionTreeClassifier(mode='C45')
-        tree = tree_clf.fit(list(data.keys()), data)
+        # tree = tree_clf.fit(list(data.keys()), data)
         # draw_tree(tree)
 
 
