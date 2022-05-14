@@ -73,3 +73,17 @@ class DecisionTreeClassifier:
         self.dataset_ = pd.concat([X, y], axis=1)
         self.features_ = list(X.columns)
         self.tree_ = build_tree(self.features_, self.dataset_)
+
+    def predict(self, X):
+        y = []
+
+        for x in X.to_dict('records'):
+            class_ = self.tree_
+
+            while type(class_) == dict:
+                feature = list(class_.keys())[0]
+                class_ = class_[feature][x[feature]]
+
+            y.append(class_)
+
+        return y
