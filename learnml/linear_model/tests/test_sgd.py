@@ -24,7 +24,7 @@ class TestSGDClassifier(unittest.TestCase):
         X_train = scaler.transform(X_train)
         X_test = scaler.transform(X_test)
 
-        for i, penalty in enumerate(['l2', 'l1']):
+        for penalty in ['l2', 'l1']:
             with self.subTest(penalty=penalty):
                 log_clf = SGDClassifier(penalty=penalty, max_iter=5000, eta0=1)
                 log_clf.fit(X_train, y_train)
@@ -39,7 +39,7 @@ class TestSGDRegressor(unittest.TestCase):
         X = np.array([[1], [2]])
         y = np.array([1, 2])
 
-        for i, penalty in enumerate(['l2', 'l1']):
+        for penalty in ['l2', 'l1']:
             with self.subTest(penalty=penalty):
                 sgd_reg = SGDRegressor(penalty=penalty)
                 sgd_reg.fit(X, y)
