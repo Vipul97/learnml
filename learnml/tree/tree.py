@@ -1,76 +1,75 @@
 import numpy as np
-from graphviz import Digraph
+import pandas as pd
 
 
 class DecisionTreeClassifier:
     def __init__(self, mode='ID3'):
         self.__mode = mode
-        self.dataset = None
-        self.features = None
-        self.t = Digraph()
+        self.dataset_ = None
+        self.features_ = None
+        self.tree_ = None
 
-    def fit(self, features, dataset):
-        def count(feature, dataset):
+    def fit(self, X, y):
+        def label_counts(feature, dataset):
             counts = {}
 
             for label in dataset[feature]:
-                counts.setdefault(label, 0) + 1
+                counts[label] = counts.get(label, 0) + 1
 
             return counts
 
         def entropy(feature, dataset):
-            counts_of_label = count(feature, dataset)
+            feature_label_counts = label_counts(feature, dataset)
             e = 0.0
 
-            for label in counts_of_label:
-                p = float(counts_of_label[label]) / len(dataset)
+            for label in feature_label_counts:
+                p = float(feature_label_counts[label]) / len(dataset)
                 e += p * np.log2(p)
 
             return -e
 
         def rem(feature, dataset):
-            counts_of_label = count(feature, dataset)
+            feature_label_counts = label_counts(feature, dataset)
             r = 0.0
 
-            for label in counts_of_label:
-                p = float(counts_of_label[label]) / len(dataset)
-                r += p * entropy(features[-1], dataset[dataset[feature] == label])
+            for label in feature_label_counts:
+                p = float(feature_label_counts[label]) / len(dataset)
+                r += p * entropy(y.name, dataset[dataset[feature] == label])
 
             return r
 
         def info_gain(feature, dataset):
-            return entropy(features[-1], dataset) - rem(feature, dataset)
+            return entropy(y.name, dataset) - rem(feature, dataset)
 
         def find_best_feature(features, dataset):
             max_info_gain = 0.0
-            best_feature = ''
+            best_feature = None
 
             for feature in features:
-                curr_info_gain = info_gain(feature, dataset)
+                feature_info_gain = info_gain(feature, dataset)
 
                 if self.__mode == 'C45':
-                    curr_info_gain /= entropy(feature, dataset)
+                    feature_info_gain /= entropy(feature, dataset)
 
-                if curr_info_gain > max_info_gain:
-                    max_info_gain = curr_info_gain
+                if feature_info_gain > max_info_gain:
+                    max_info_gain = feature_info_gain
                     best_feature = feature
 
             return best_feature
 
-        def build_tree(f, dataset):
-            if len(count(features[-1], dataset)) == 1:
-                return list(count(features[-1], dataset).keys())[0]
+        def build_tree(features, dataset):
+            if len(label_counts(y.name, dataset)) == 1:
+                return list(label_counts(y.name, dataset).keys())[0]
 
-            best_feature = find_best_feature(f, dataset)
+            best_feature = find_best_feature(features, dataset)
             tree = {best_feature: {}}
-            f.remove(best_feature)
+            features.remove(best_feature)
 
-            for val in count(best_feature, dataset):
-                tree[best_feature][val] = build_tree(f, dataset.loc[dataset[best_feature] == val])
+            for label in label_counts(best_feature, dataset):
+                tree[best_feature][label] = build_tree(features, dataset.loc[dataset[best_feature] == label])
 
             return tree
 
-        self.features = features
-        self.dataset = dataset
-
-        return build_tree(self.features[:-1], self.dataset)
+        self.dataset_ = pd.concat([X, y], axis=1)
+        self.features_ = list(X.columns)
+        self.tree_ = build_tree(self.features_, self.dataset_)
