@@ -48,18 +48,19 @@ class DecisionTreeClassifier:
             for feature in features:
                 feature_info_gain = info_gain(feature, dataset)
 
-                if self.__mode == 'C45':
+                if self.__mode == 'C4.5':
                     feature_info_gain /= entropy(feature, dataset)
 
-                if feature_info_gain > max_info_gain:
+                if max_info_gain < feature_info_gain:
                     max_info_gain = feature_info_gain
                     best_feature = feature
 
             return best_feature
 
         def build_tree(features, dataset):
-            if len(label_counts(y.name, dataset)) == 1:
-                return list(label_counts(y.name, dataset).keys())[0]
+            target_label_counts = label_counts(y.name, dataset)
+            if len(target_label_counts) == 1:
+                return list(target_label_counts.keys())[0]
 
             best_feature = find_best_feature(features, dataset)
             tree = {best_feature: {}}
