@@ -23,7 +23,7 @@ class TestNeuralNetwork(unittest.TestCase):
         X_train = scaler.transform(X_train)
         X_test = scaler.transform(X_test)
 
-        nn_clf = NeuralNetwork(layer_dims=np.array([2, 1]), learning_rate=1, num_iterations=100)
+        nn_clf = NeuralNetwork(layer_dims=np.array([2, 2, 1]), learning_rate=1, num_iterations=100)
         nn_clf.fit(X_train, y_train)
         y_pred = nn_clf.predict(X_test)
 
