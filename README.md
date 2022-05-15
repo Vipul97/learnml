@@ -4,7 +4,7 @@ LearnML is a Python module for Machine Learning and Deep Learning.
 # Installation
 
 ## Requirements
-* Python 3.5+
+* Python 3.6+
 
 ## Stable release
 
