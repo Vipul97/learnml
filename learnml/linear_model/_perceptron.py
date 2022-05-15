@@ -19,7 +19,7 @@ class Perceptron:
         self.t_ = self.n_iter * n_samples
         w = np.array([self.intercept_, *self.coef_])
 
-        for j in range(self.n_iter):
+        for _ in range(self.n_iter):
             for i in range(n_samples):
                 y_hat = np.heaviside(np.dot(X[i], w), 0)
                 w += self.__eta0 * (y[i] - y_hat) * X[i]
