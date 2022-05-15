@@ -5,8 +5,8 @@ import numpy as np
 
 
 def plot_regression(model, X, y, poly_features=None, xlabel='x_1', ylabel='y'):
-    plt.xlabel('${}$'.format(xlabel), fontsize=18)
-    plt.ylabel('${}$'.format(ylabel), fontsize=18)
+    plt.xlabel(f'${xlabel}$', fontsize=18)
+    plt.ylabel(f'${ylabel}$', fontsize=18)
 
     X_new = np.linspace(np.min(X), np.max(X), 1000).reshape(-1, 1)
 
