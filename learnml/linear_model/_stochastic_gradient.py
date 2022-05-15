@@ -24,7 +24,7 @@ class SGDClassifier:
         self.costs = []
         w = np.array([self.intercept_, *self.coef_])
 
-        for i in range(self.n_iter_):
+        for _ in range(self.n_iter_):
             p = sigmoid(np.dot(X, w))
             cost = -1 / n_samples * (np.sum(y * np.log(p) + (1 - y) * np.log(1 - p)))
             w -= self.__eta0 * 1 / n_samples * np.dot(X.T, p - y)
@@ -81,7 +81,7 @@ class SGDRegressor:
         self.costs, self.w_path = [], []
         w = np.array([self.intercept_, *self.coef_])
 
-        for j in range(self.n_iter_):
+        for _ in range(self.n_iter_):
             for i in range(n_samples):
                 cost = (np.dot(X[i], w) - y[i]) ** 2
                 w -= self.__eta0 * 2 * np.dot(X[i].T, np.dot(X[i], w) - y[i])
