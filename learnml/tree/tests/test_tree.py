@@ -11,10 +11,14 @@ class TestDecisionTreeClassifier(unittest.TestCase):
         X_train = data.drop('Vegetation', axis=1)
         y_train = data['Vegetation']
 
-        tree_clf = DecisionTreeClassifier(mode='ID3')
-        tree_clf.fit(X_train, y_train)
-        numpy.testing.assert_equal(['carrot', 'radish', 'radish', 'carrot', 'coriander', 'coriander', 'carrot'],
-                                   tree_clf.predict(X_train))
+        for mode in ['ID3', 'C4.5']:
+            with self.subTest(mode=mode):
+                tree_clf = DecisionTreeClassifier(mode=mode)
+                tree_clf.fit(X_train, y_train)
+                y_pred = tree_clf.predict(X_train)
+
+                numpy.testing.assert_equal(['carrot', 'radish', 'radish', 'carrot', 'coriander', 'coriander', 'carrot'],
+                                           y_pred)
 
 
 if __name__ == '__main__':
