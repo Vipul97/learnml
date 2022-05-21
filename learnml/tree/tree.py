@@ -10,30 +10,20 @@ class DecisionTreeClassifier:
         self.tree_ = None
 
     def fit(self, X, y):
-        def label_counts(feature, dataset):
-            counts = {}
-
-            for label in dataset[feature]:
-                counts[label] = counts.get(label, 0) + 1
-
-            return counts
-
         def entropy(feature, dataset):
-            feature_label_counts = label_counts(feature, dataset)
             e = 0.0
 
-            for label in feature_label_counts:
-                p = float(feature_label_counts[label]) / len(dataset)
+            for count in dataset[feature].value_counts():
+                p = float(count) / len(dataset)
                 e += p * np.log2(p)
 
             return -e
 
         def rem(feature, dataset):
-            feature_label_counts = label_counts(feature, dataset)
             r = 0.0
 
-            for label in feature_label_counts:
-                p = float(feature_label_counts[label]) / len(dataset)
+            for label, count in dataset[feature].value_counts().items():
+                p = float(count) / len(dataset)
                 r += p * entropy(y.name, dataset[dataset[feature] == label])
 
             return r
@@ -58,15 +48,15 @@ class DecisionTreeClassifier:
             return best_feature
 
         def build_tree(features, dataset):
-            target_label_counts = label_counts(y.name, dataset)
+            target_label_counts = dataset[y.name].value_counts()
             if len(target_label_counts) == 1:
-                return list(target_label_counts.keys())[0]
+                return target_label_counts.index[0]
 
             best_feature = find_best_feature(features, dataset)
             tree = {best_feature: {}}
             features.remove(best_feature)
 
-            for label in label_counts(best_feature, dataset):
+            for label in dataset[best_feature].value_counts().index:
                 tree[best_feature][label] = build_tree(features, dataset.loc[dataset[best_feature] == label])
 
             return tree
