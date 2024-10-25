@@ -5,6 +5,7 @@ import unittest
 
 
 class TestDecisionTreeClassifier(unittest.TestCase):
+    @classmethod
     def setUpClass(cls):
         cls.data = pd.read_csv('learnml/tree/tests/test_data.csv', dtype=object)
         cls.X_train = cls.data.drop('Vegetation', axis=1)
