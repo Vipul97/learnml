@@ -1,19 +1,19 @@
 from learnml.preprocessing import StandardScaler
 import numpy as np
-import numpy.testing
 import unittest
 
 
 class TestStandardScaler(unittest.TestCase):
-    def test_fit_transform(self):
-        X = np.array([1, 2, 3, 4, 5]).reshape(-1, 1)
+    def setUp(self):
+        self.X = np.array([1, 2, 3, 4, 5]).reshape(-1, 1)
 
+    def test_fit_transform(self):
         scaler = StandardScaler()
 
-        scaler.fit(X)
+        scaler.fit(self.X)
 
-        numpy.testing.assert_array_almost_equal(np.array([3]), scaler.mean_)
-        numpy.testing.assert_array_almost_equal(np.array([1.41421356]), scaler.scale_)
+        np.testing.assert_array_almost_equal(scaler.mean_, np.array([3]))
+        np.testing.assert_array_almost_equal(scaler.scale_, np.array([1.41421356]))
 
 
 if __name__ == '__main__':

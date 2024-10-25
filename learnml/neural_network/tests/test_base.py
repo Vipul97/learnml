@@ -7,10 +7,18 @@ import unittest
 
 
 class TestNeuralNetwork(unittest.TestCase):
-    def test_fit_predict(self):
-        data = pd.read_csv('learnml/neural_network/tests/test_data.csv')
+    TEST_SIZE = 0.2
+    RANDOM_STATE = 42
+    ACCURACY_THRESHOLD = 0.8
+    LAYER_DIMS = np.array([2, 2, 1])
+    LEARNING_RATE = 1
+    NUM_ITERATIONS = 100
 
-        train, test = train_test_split(data, 0.2, random_state=42)
+    def setUp(self):
+        self.data = pd.read_csv('learnml/neural_network/tests/test_data.csv')
+
+    def preprocess_data(self):
+        train, test = train_test_split(self.data, test_size=self.TEST_SIZE, random_state=self.RANDOM_STATE)
 
         X_train = train.drop('y', axis=1).values
         y_train = train['y'].values
@@ -23,12 +31,18 @@ class TestNeuralNetwork(unittest.TestCase):
         X_train = scaler.transform(X_train)
         X_test = scaler.transform(X_test)
 
-        nn_clf = NeuralNetwork(layer_dims=np.array([2, 2, 1]), learning_rate=1, num_iterations=100)
+        return X_train, y_train, X_test, y_test
+
+    def test_fit_predict(self):
+        X_train, y_train, X_test, y_test = self.preprocess_data()
+
+        nn_clf = NeuralNetwork(layer_dims=self.LAYER_DIMS, learning_rate=self.LEARNING_RATE,
+                               num_iterations=self.NUM_ITERATIONS)
         nn_clf.fit(X_train, y_train)
         y_pred = nn_clf.predict(X_test)
 
         accuracy_score = np.mean(y_pred == y_test)
-        self.assertTrue(accuracy_score >= 0.8)
+        np.testing.assert_(accuracy_score >= self.ACCURACY_THRESHOLD)
 
 
 if __name__ == '__main__':

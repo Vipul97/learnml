@@ -1,20 +1,23 @@
 from learnml.linear_model import Ridge
 import numpy as np
-import numpy.testing
 import unittest
 
 
 class TestRidge(unittest.TestCase):
+    def setUp(self):
+        self.X = np.array([[1], [2]])
+        self.y = np.array([1, 2])
+        self.lin_reg = Ridge(alpha=0.01)
+        self.lin_reg.fit(self.X, self.y)
+
     def test_fit_predict(self):
-        X = np.array([[1], [2]])
-        y = np.array([1, 2])
+        expected_coef = np.array([1])
+        expected_intercept = np.array([0])
+        expected_predictions = np.array([1, 2])
 
-        lin_reg = Ridge(alpha=0.01)
-        lin_reg.fit(X, y)
-
-        numpy.testing.assert_almost_equal(np.array([1]), lin_reg.coef_, 1)
-        numpy.testing.assert_almost_equal(np.array([0]), lin_reg.intercept_, 1)
-        numpy.testing.assert_almost_equal(np.array([1, 2]), lin_reg.predict(X), 1)
+        np.testing.assert_almost_equal(self.lin_reg.coef_, expected_coef, 1)
+        np.testing.assert_almost_equal(self.lin_reg.intercept_, expected_intercept, 1)
+        np.testing.assert_almost_equal(self.lin_reg.predict(self.X), expected_predictions, 1)
 
 
 if __name__ == '__main__':

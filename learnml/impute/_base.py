@@ -14,5 +14,10 @@ class SimpleImputer:
         elif self.strategy == 'constant':
             self.statistics_ = self.fill_value
 
+        return self
+
     def transform(self, data):
         return data.fillna(self.statistics_).to_numpy()
+
+    def fit_transform(self, data):
+        return self.fit(data).transform(data)

@@ -1,35 +1,51 @@
+from numpy.f2py.crackfortran import expectbegin
+
 from learnml.preprocessing import OrdinalEncoder
 from learnml.preprocessing import OneHotEncoder
 import numpy as np
-import numpy.testing
 import pandas as pd
 import unittest
 
 
-class TestOneHotEncoder(unittest.TestCase):
-    def test_fit_transform(self):
-        data = pd.read_csv('learnml/preprocessing/tests/test_data.csv')
+class BaseEncoderTest(unittest.TestCase):
+    def setUp(self):
+        self.data = pd.read_csv('learnml/preprocessing/tests/test_data.csv')
 
+
+class TestOneHotEncoder(BaseEncoderTest):
+    def test_fit_transform(self):
         onehot_encoder = OneHotEncoder()
-        onehot_encoder.fit(data)
+        onehot_encoder.fit(self.data)
 
-        numpy.testing.assert_equal(np.array(
-            [[False, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0], [True, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1],
-             [True, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1], [False, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0],
-             [False, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0], [True, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0],
-             [True, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0]]), onehot_encoder.transform(data))
+        expected_output = np.array([
+            [False, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0],
+            [True, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+            [True, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1],
+            [False, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0],
+            [False, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0],
+            [True, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0],
+            [True, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0]
+        ])
+
+        np.testing.assert_equal(onehot_encoder.transform(self.data), expected_output)
 
 
-class TestOrdinalEncoder(unittest.TestCase):
+class TestOrdinalEncoder(BaseEncoderTest):
     def test_fit_transform(self):
-        data = pd.read_csv('learnml/preprocessing/tests/test_data.csv')
-
         ordinal_encoder = OrdinalEncoder()
-        ordinal_encoder.fit(data)
+        ordinal_encoder.fit(self.data)
 
-        numpy.testing.assert_equal(np.array(
-            [[0, 2, 0, 0], [1, 1, 2, 2], [1, 2, 3, 2], [0, 2, 3, 0], [0, 0, 0, 1], [1, 2, 1, 1], [1, 2, 0, 0]]),
-            ordinal_encoder.transform(data))
+        expected_output = np.array([
+            [0, 2, 0, 0],
+            [1, 1, 2, 2],
+            [1, 2, 3, 2],
+            [0, 2, 3, 0],
+            [0, 0, 0, 1],
+            [1, 2, 1, 1],
+            [1, 2, 0, 0]
+        ])
+
+        np.testing.assert_equal(ordinal_encoder.transform(self.data), expected_output)
 
 
 if __name__ == '__main__':

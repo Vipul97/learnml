@@ -12,3 +12,7 @@ class StandardScaler:
 
     def transform(self, X):
         return (X - self.mean_) / self.scale_
+
+    def fit_transform(self, X):
+        self.fit(X)
+        return self.transform(X)
