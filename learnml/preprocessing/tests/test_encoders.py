@@ -1,5 +1,3 @@
-from numpy.f2py.crackfortran import expectbegin
-
 from learnml.preprocessing import OrdinalEncoder
 from learnml.preprocessing import OneHotEncoder
 import numpy as np

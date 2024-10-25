@@ -14,7 +14,6 @@ class TestSimpleImputer(unittest.TestCase):
             'constant': np.array([[1.0], [2.0], [2.0], [42.0], [4.0], [5.0]])
         }
 
-
     def test_fit_transform(self):
         for strategy, expected in self.expected_results.items():
             with self.subTest(strategy=strategy):
